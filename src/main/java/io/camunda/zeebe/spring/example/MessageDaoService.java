@@ -13,7 +13,7 @@ public class MessageDaoService {
     private ZeebeClient zeebe;
 
     public void publishMessage() {
-        System.out.println("GOT HERE!!!");
+        System.out.println("Send in message...");
         zeebe.newPublishMessageCommand()
                 .messageName("messageYes")
                 .correlationKey("yes")
@@ -22,8 +22,11 @@ public class MessageDaoService {
                 //.timeToLive(message.getTimeToLive())
                 //.variables(message.getVariables())
                 .send()
-                .whenComplete((c, t) -> {System.out.println("GOT AFTER!!!");})
+                .whenComplete((c, t) -> {
+                    System.out.println("...sent successfully");
+                })
                 .exceptionally(t -> {
+                    System.out.println("...could NOT be sent: " + t.getMessage());
                     throw new RuntimeException("Could not hand over record to Zeebe: "+". check nested exception for details: " + t.getMessage());
                 });
     }
