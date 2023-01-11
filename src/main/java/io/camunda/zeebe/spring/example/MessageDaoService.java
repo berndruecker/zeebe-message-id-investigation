@@ -4,6 +4,8 @@ import io.camunda.zeebe.client.ZeebeClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+
 @Component
 public class MessageDaoService {
 
@@ -13,9 +15,10 @@ public class MessageDaoService {
     public void publishMessage() {
         System.out.println("GOT HERE!!!");
         zeebe.newPublishMessageCommand()
-                .messageName("yes")
+                .messageName("messageYes")
                 .correlationKey("yes")
                 .messageId("121212")
+                .timeToLive(Duration.ofMinutes(1))
                 //.timeToLive(message.getTimeToLive())
                 //.variables(message.getVariables())
                 .send()
