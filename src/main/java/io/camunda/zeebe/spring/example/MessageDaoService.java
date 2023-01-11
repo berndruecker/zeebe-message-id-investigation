@@ -18,12 +18,12 @@ public class MessageDaoService {
                 .messageName("messageYes")
                 .correlationKey("yes")
                 .messageId("121212")
-                .timeToLive(Duration.ofMinutes(1))
+                //.timeToLive(Duration.ofMinutes(1))
                 //.timeToLive(message.getTimeToLive())
                 //.variables(message.getVariables())
                 .send()
                 .whenComplete((c, t) -> {
-                    System.out.println("...sent successfully");
+                    System.out.println("...completed");
                 })
                 .exceptionally(t -> {
                     System.out.println("...could NOT be sent: " + t.getMessage());
